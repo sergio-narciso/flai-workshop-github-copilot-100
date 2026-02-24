@@ -109,10 +109,17 @@ document.addEventListener("DOMContentLoaded", () => {
         { method: "DELETE" }
       );
 
+      const result = await response.json();
+
       if (response.ok) {
+        messageDiv.textContent = result.message || "Participant successfully unregistered.";
+        messageDiv.className = "success";
+        messageDiv.classList.remove("hidden");
+        setTimeout(() => {
+          messageDiv.classList.add("hidden");
+        }, 5000);
         fetchActivities();
       } else {
-        const result = await response.json();
         messageDiv.textContent = result.detail || "Failed to unregister participant.";
         messageDiv.className = "error";
         messageDiv.classList.remove("hidden");
