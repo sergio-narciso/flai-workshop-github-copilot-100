@@ -113,10 +113,23 @@ document.addEventListener("DOMContentLoaded", () => {
         fetchActivities();
       } else {
         const result = await response.json();
-        alert(result.detail || "Failed to unregister participant.");
+        messageDiv.textContent = result.detail || "Failed to unregister participant.";
+        messageDiv.className = "error";
+        messageDiv.classList.remove("hidden");
+        // Hide message after 5 seconds
+        setTimeout(() => {
+          messageDiv.classList.add("hidden");
+        }, 5000);
       }
     } catch (error) {
       console.error("Error unregistering participant:", error);
+      messageDiv.textContent = "Failed to unregister participant. Please try again.";
+      messageDiv.className = "error";
+      messageDiv.classList.remove("hidden");
+      // Hide message after 5 seconds
+      setTimeout(() => {
+        messageDiv.classList.add("hidden");
+      }, 5000);
     }
   });
 
